@@ -34,7 +34,7 @@ func main() {
 
 	storageType := os.Getenv("STORAGE_TYPE")
 	if storageType == "" {
-		storageType = "postgres" // Значение по умолчанию
+		storageType = "postgres"
 	}
 
 	var urlsRepository urls_service.UrlsRepository

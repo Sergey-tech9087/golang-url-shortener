@@ -11,7 +11,7 @@ func (s *UrlsService) GetByCode(
 	ctx context.Context,
 	code string,
 ) (domain.Url, error) {
-	if err := Validate(code); err != nil {
+	if err := validate(code); err != nil {
 		return domain.Url{}, fmt.Errorf("validate code: %w", err)
 	}
 

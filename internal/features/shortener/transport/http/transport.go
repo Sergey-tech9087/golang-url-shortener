@@ -38,7 +38,7 @@ func (h *UrlsHTTPHandler) Routes() []core_http_server.Route {
 		},
 		{
 			Method:  http.MethodGet,
-			Path:    "/urls/{code}",
+			Path:    "/shortenurl/{code}",
 			Handler: h.GetUrl,
 		},
 	}
