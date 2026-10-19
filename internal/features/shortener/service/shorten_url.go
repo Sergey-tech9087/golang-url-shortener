@@ -28,7 +28,7 @@ func (s *UrlsService) ShortenUrl(
 	for range maxRetries {
 		code, err := generateCode(codeLength)
 
-		if err := Validate(code); err != nil {
+		if err := validate(code); err != nil {
 			return domain.Url{}, fmt.Errorf("generate code: %w", err)
 		}
 		urlToSave := url.WithCode(code)
@@ -57,7 +57,7 @@ func generateCode(n int) (string, error) {
 	return string(code), nil
 }
 
-func Validate(code string) error {
+func validate(code string) error {
 	fullUrlLen := len([]rune(code))
 
 	if fullUrlLen != 10 {
