@@ -6,6 +6,19 @@ services:
     container_name: url-shortener-app
     environment:
       - STORAGE_TYPE=${STORAGE_TYPE:-memory}
+      - LOGGER_LEVEL=${LOGGER_LEVEL}
+      - LOGGER_FOLDER=${PROJECT_ROOT}/out/logs
+      - HTTP_ADDR=:5050
+      - HTTP_SHUTDOWN_TIMEOUT=${HTTP_SHUTDOWN_TIMEOUT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST=url-shortener-postgres 
+      - POSTGRES_TIMEOUT=${POSTGRES_TIMEOUT}
+    ports:
+      - "5050:5050"
+    volumes:
+      - ${PROJECT_ROOT}/out/logs:/app/out/logs
     depends_on:
       url-shortener-postgres:
         condition: service_healthy

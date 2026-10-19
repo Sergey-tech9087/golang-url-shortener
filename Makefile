@@ -2,6 +2,7 @@
 export
 
 export PROJECT_ROOT=$(shell pwd)
+export POSTGRES_HOST := localhost
 COMPOSE      := docker compose
 COMPOSE_PG   := $(COMPOSE) --profile postgres
 
@@ -37,7 +38,7 @@ migrate-down:
 
 # --- Приложение ---
 app-up-memory:
-	STORAGE_TYPE=memory $(COMPOSE) up --build -d url-shortener-app
+	STORAGE_TYPE=inmemory $(COMPOSE) up --build -d url-shortener-app
 
 app-up-postgres:
 	STORAGE_TYPE=postgres $(COMPOSE_PG) up --build -d url-shortener-app
@@ -46,4 +47,6 @@ app-down:
 	$(COMPOSE) down
 
 url-shortener-run:
-	@go run ./cmd/url-shortener-app/main.go
+	@export LOGGER_FOLDER=${PROJECT_ROOT}/out/logs && \
+	go mod tidy && \
+	go run ./cmd/url-shortener-app/main.go
